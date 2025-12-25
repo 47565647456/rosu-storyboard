@@ -7,7 +7,7 @@ pub struct CommandTimeline<T> {
     pub end_time: f64,
     pub start_value: T,
     pub end_value: T,
-    pub(crate) commands: Vec<TypedCommand<T>>,
+    commands: Vec<TypedCommand<T>>,
 }
 
 impl<T: Default> CommandTimeline<T> {
@@ -48,6 +48,11 @@ impl<T: Copy> CommandTimeline<T> {
             self.end_time = end_time;
         }
     }
+
+    /// Get all individual commands in this timeline.
+    pub fn commands(&self) -> &[TypedCommand<T>] {
+        &self.commands
+    }
 }
 
 impl<T: Default> Default for CommandTimeline<T> {
@@ -62,13 +67,14 @@ impl<T: Default> Default for CommandTimeline<T> {
     }
 }
 
+/// A single storyboard command with timing and easing.
 #[derive(Clone, Debug, PartialEq)]
-pub(crate) struct TypedCommand<T> {
-    pub(crate) easing: Easing,
-    pub(crate) start_time: f64,
-    pub(crate) end_time: f64,
-    pub(crate) start_value: T,
-    pub(crate) end_value: T,
+pub struct TypedCommand<T> {
+    pub easing: Easing,
+    pub start_time: f64,
+    pub end_time: f64,
+    pub start_value: T,
+    pub end_value: T,
 }
 
 /// Interface of [`CommandTimeline`] without its generic type.
@@ -91,3 +97,4 @@ impl<T> ICommandTimeline for CommandTimeline<T> {
         !self.commands.is_empty()
     }
 }
+

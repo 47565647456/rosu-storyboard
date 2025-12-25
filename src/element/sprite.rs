@@ -53,12 +53,12 @@ impl Sprite {
             None => min_alpha = Some((start_time, value.abs() < f32::EPSILON)),
         };
 
-        if let Some(command) = self.timeline_group.alpha.commands.first() {
+        if let Some(command) = self.timeline_group.alpha.commands().first() {
             update_min(command.start_time, command.start_value);
         }
 
         for l in self.loops.iter() {
-            if let Some(command) = l.group.alpha.commands.first() {
+            if let Some(command) = l.group.alpha.commands().first() {
                 update_min(command.start_time + l.loop_start_time, command.start_value);
             }
         }

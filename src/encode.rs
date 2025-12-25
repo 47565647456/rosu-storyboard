@@ -251,19 +251,19 @@ fn write_group<W: Write>(
     indent: usize,
     group: &CommandTimelineGroup,
 ) -> IoResult<()> {
-    for command in group.x.commands.iter() {
+    for command in group.x.commands().iter() {
         write_f32_command(writer, indent, "MX", command)?;
     }
 
-    for command in group.y.commands.iter() {
+    for command in group.y.commands().iter() {
         write_f32_command(writer, indent, "MY", command)?;
     }
 
-    for command in group.scale.commands.iter() {
+    for command in group.scale.commands().iter() {
         write_f32_command(writer, indent, "S", command)?;
     }
 
-    for command in group.vector_scale.commands.iter() {
+    for command in group.vector_scale.commands().iter() {
         write_command_prefix(writer, indent, "V", command)?;
 
         write!(
@@ -281,7 +281,7 @@ fn write_group<W: Write>(
         writer.write_all(b"\n")?;
     }
 
-    for command in group.rotation.commands.iter() {
+    for command in group.rotation.commands().iter() {
         write_command_prefix(writer, indent, "R", command)?;
         write!(writer, "{}", command.start_value.to_radians())?;
 
@@ -292,7 +292,7 @@ fn write_group<W: Write>(
         writer.write_all(b"\n")?;
     }
 
-    for command in group.color.commands.iter() {
+    for command in group.color.commands().iter() {
         write_command_prefix(writer, indent, "C", command)?;
 
         write!(
@@ -316,21 +316,21 @@ fn write_group<W: Write>(
         writer.write_all(b"\n")?;
     }
 
-    for command in group.alpha.commands.iter() {
+    for command in group.alpha.commands().iter() {
         write_f32_command(writer, indent, "F", command)?;
     }
 
-    for command in group.blending_parameters.commands.iter() {
+    for command in group.blending_parameters.commands().iter() {
         write_command_prefix(writer, indent, "P", command)?;
         writeln!(writer, "A")?;
     }
 
-    for command in group.flip_h.commands.iter() {
+    for command in group.flip_h.commands().iter() {
         write_command_prefix(writer, indent, "P", command)?;
         writeln!(writer, "H")?;
     }
 
-    for command in group.flip_v.commands.iter() {
+    for command in group.flip_v.commands().iter() {
         write_command_prefix(writer, indent, "P", command)?;
         writeln!(writer, "V")?;
     }

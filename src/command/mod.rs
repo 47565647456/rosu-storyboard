@@ -1,11 +1,11 @@
 pub use self::{
     command_loop::CommandLoop,
-    timeline::{CommandTimeline, ICommandTimeline},
+    timeline::{CommandTimeline, ICommandTimeline, TypedCommand},
     timeline_group::CommandTimelineGroup,
     trigger::CommandTrigger,
 };
 pub(crate) use self::{
-    command_loop::CommandLoopInternal, timeline::TypedCommand, trigger::CommandTriggerInternal,
+    command_loop::CommandLoopInternal, trigger::CommandTriggerInternal,
 };
 
 mod command_loop;
